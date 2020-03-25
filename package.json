@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "document": "^0.4.7",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "gulp": "^4.0.1"
   },
   "engines": {
     "node": "4.0.0"

@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const document = require('document');
 
 let rawdata = fs.readFileSync('UIResourceExample.json');
 let jsonData = JSON.parse(rawdata);

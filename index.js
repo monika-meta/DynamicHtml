@@ -74,7 +74,7 @@ function generateSelect(ngModel, options, data, onSet) {
     `
 }
 
-function generateRadio(ngModel,data, type, placeholder) {
+function generateRadio(ngModel,data) {
 let radioGroupStart =  `<mbsc-radio-group 
 [(ngModel)]="${ngModel}">`;
    for(let i = 0; i < data.length-1; i++){
@@ -82,26 +82,38 @@ let radioGroupStart =  `<mbsc-radio-group
      [value]="${data[i].value}">
      </mbsc-radio>
      `
-     let radioGroupStart =  `<mbsc-radio-group 
-[(ngModel)]="${ngModel}">`;
 radioGroupStart =  radioGroupStart+ temp;
    }
-  return `
-    <mbsc-radio-group 
-    [(ngModel)]="${ngModel}">
-    <mbsc-radio 
-    [value]="x[0].value">
-    </mbsc-radio> 
-    <mbsc-radio [value]="x[1].value">{{x[1].label}}</mbsc-radio>
-    </mbsc-radio-group>
-    `
+   radioGroupStart =  radioGroupStart+ '</mbsc-radio-group>'
+  return radioGroupStart;
 }
+
+function generateCheckbox(ngModel,data, type, placeholder) {
+  let checkbox =  ``;
+     for(let i = 0; i < data.length-1; i++){
+       let temp = `<mbsc-checkbox
+        [(ngModel)]="${ngModel}"
+         (change)="regForm.checkboxChange()">{{data[i].label}}
+         </mbsc-checkbox>
+       `
+       checkbox =  checkbox+ temp;
+     }
+    return checkbox;
+  }
+
+  function generateSwitch(ngModel) {
+    return `
+    <mbsc-switch
+    [(ngModel)]="${ngModel}"
+    ></mbsc-switch>
+    `
+    }
 
 
 properties.forEach(element => {
   let temp;
   if (element.componentref.id == "input") {
-    temp = generateInput(formId + '.' + element.id, formId + '.placeholder')
+    temp = generateInput(formId + '.' + element.id, 'regForm.placeholder')
   } else if (element.componentref.id == "select") {
     temp = generateSelect(formId + '.' + element.id, '', element.enumvals, formId + '.' + element.id + '.onSelect($event)')
   }

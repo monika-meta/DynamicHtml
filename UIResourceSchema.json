@@ -1,0 +1,293 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "UIResourceSchema.json",
+	"title": "UI Resource File Structure",
+	"description": "For Management of UI Related Data",
+	"type": "object",
+	"properties": {
+		"schema": {
+			"$ref": "#/definitions/schema"
+		}
+	},
+	"additionalProperties": false,
+	"definitions": {
+		"schema": {
+			"title": "Schema File",
+			"description": "Schema Input File Header",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Schema File ID",
+					"description": "From ID Of Header",
+					"type": "string"
+				},
+				"title": {
+					"title": "Schema File Title",
+					"description": "From Title Of Header",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"description": {
+					"title": "Schema File Description",
+					"description": "From Description Of Header",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"objtypes": {
+					"title": "Object Types Collection",
+					"description": "Collection of Object Types",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/objtype"
+					}
+				}
+			},
+			"required": [
+				"id", "objtypes"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]
+		},
+		"objtype": {
+			"title": "Object Type",
+			"description": "Object Type Data Extracted from Definitions Node of Schema",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Object Type ID",
+					"description": "From ID Of Object Type",
+					"type": "string"
+				},
+				"title": {
+					"title": "Object Type Title",
+					"description": "From Title Of Object Type",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"description": {
+					"title": "Object Type Description",
+					"description": "From Description Of Object Type",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"relations": {
+					"title": "Collection of Relationships",
+					"description": "",
+					"type": "array",
+					"items": {
+					"$ref": "#/definitions/objrelation"
+					}
+				},
+				"properties": {
+					"title": "Object Properties Collection",
+					"description": "Collection of Object Types",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/objproperty"
+					}
+				},
+				"messagecodes": {
+					"title": "Object Message Codes Collection",
+					"description": "Collection of Object Related Messages",
+					"type": "array",
+					"items": {
+						"$ref": "SchemaCommon.json#/definitions/messagecode"
+					}
+				},
+				"examples": {
+					"title": "Object Data Examples",
+					"description": "Data Examples for QA Testing etc.  Extracted from Schema File then editable",
+					"type": "array",
+					"items": {
+						"type":"object"
+					}
+				}
+			},
+			"required": [
+				"id", "properties"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]
+		},
+		"objproperty": {
+			"title": "Object Property",
+			"description": "Object Property Data Extracted from Properties Node of Schema",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Property ID",
+					"description": "From ID Of Object Property",
+					"type": "string"
+				},
+				"type": {
+					"title": "Property Data Type",
+					"description": "From Type Of Object Property",
+					"type": "string",
+					"enum": ["string", "integer"]
+				},
+				"typeref": {
+					"title": "Property Type Reference",
+					"description": "From $ref Of Object Property for common types",
+					"type": "string"
+				},
+				"required": {
+					"title": "Property Is Required",
+					"description": "",
+					"type": "boolean"
+				},
+				"componentref": {
+					"title": "Component Reference",
+					"description": "Specify UI Component to use",
+					"$ref": "#/definitions/componentref"
+				},
+				"maxLength": {
+					"title": "Max Length For String Data Types",
+					"description": "",
+					"type": "integer"
+				},
+				"title": {
+					"title": "Property Title",
+					"description": "From Title Of Property",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"placeholder": {
+					"title": "Property Placeholder",
+					"description": "Defaults to Title but can be overridden",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"description": {
+					"title": "Property Description",
+					"description": "From Description Of Property",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"enumvals": {
+					"title": "Property Enumerations",
+					"description": "Array of EnumVals",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/enumval"
+					}
+				}
+			},
+			"required": [
+				"id", "type"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]
+		},
+		"objrelation": {
+			"title": "Object Relationship",
+			"description": "Object Relationship Data Extracted from Properties Node of Schema",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Object Property ID",
+					"description": "From ID Of Object Property",
+					"type": "string"
+				},
+				"type": {
+					"title": "Relationship Type Reference",
+					"description": "",
+					"type": "string",
+					"enum": ["contains", "containedby", "organizes", "organizedby", "assignedto", "assignedhas"]
+				},
+				"typeref": {
+					"title": "Relationship Object Type ID Reference",
+					"description": "From object type or $id",
+					"type": "string"
+				},
+				"minItems": {
+					"title": "Optional Minimum Number Required",
+					"description": "Applies only to OrganizedBy and AssignedTo types",
+					"type": "integer"
+				},
+				"maxItems": {
+					"title": "Optional Maximum Number Allowed",
+					"description": "Applies only to AssignedTo types and typically will be 1 if specified to allow a single assignment",
+					"type": "integer"
+				},
+				"mutable": {
+					"title": "Optional Mutability Specifier",
+					"description": "Applies only to OrganizedBy types",
+					"type": "integer"
+				},
+				"navquery": {
+					"title": "Optional Query criteria for navigation tree",
+					"description": "Applies only to Contains and Organizes types.  If null the collection does not appear in nav tree.  If * then all members, otherwise a query expression",
+					"type": "string"
+				},
+				"navunassigned": {
+					"title": "Optional Unassigned Folder for navigation tree",
+					"description": "Applies only to Organizes types where optional.  Creates a folder for entities which are not assigned to an organizing object",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"title": {
+					"title": "Relationship Type Title",
+					"description": "From Title Of Object Type",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"description": {
+					"title": "Relationship Type Description",
+					"description": "From Description Of Object Type",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				}
+			},
+			"required": [
+				"id", "type", "typeref"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]
+		},
+		"enumval": {
+			"title": "Enumerated Value",
+			"description": "For Local Enumerations",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Enumerated Value ID",
+					"description": "From the Enum Node in Schema",
+					"type": "string"
+				},
+				"title": {
+					"title": "Enumerated Value Title",
+					"description": "Initially Set same as ID then modified",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				},
+				"description": {
+					"title": "Enumerated Value Description",
+					"description": "Initially Set same as ID then modified",
+					"$ref": "SchemaCommon.json#/definitions/localizedtext"
+				}
+			},
+			"required": [
+				"id", "title"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]
+		},
+		"componentref":{
+			"title": "UI Component Reference",
+			"description": "For Generating Code Scaffolding and Testing",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Component Reference ID",
+					"description": "From the Enum Node in Schema",
+					"type": "string"
+				},
+				"notes": {
+					"title": "Component Reference Notes",
+					"description": "Optional Notes",
+					"type": "string"
+				}
+			},
+			"required": [
+				"id"
+			],
+			"additionalProperties": false,
+			"examples": [
+			]			
+		}
+	}
+}

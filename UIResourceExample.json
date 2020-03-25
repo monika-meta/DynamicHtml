@@ -1,0 +1,133 @@
+{
+	"schema": {
+		"id": "EnterpriseSchema.json",
+		"title": {
+			"en": "Enterprise Object Definitions"
+		},
+		"description": {
+			"en": "Definition of Enterprise Level Objects"
+		},
+		"objtypes": [
+			{
+				"id": "site",
+				"title": {
+					"en": "Site Object Type"
+				},
+				"description": {
+					"en": "Host Master Object Type - Site"
+				},
+				"relations": [
+					{
+						"id": "company",
+						"type": "containedby",
+						"typeref": "company",
+						"title": {
+							"en": "Company"
+						},
+						"description": {
+							"en": "Reference to Parent Company"
+						}
+					},
+					{
+						"id": "orgunits",
+						"type": "organizes",
+						"typeref": "orgunit",
+						"navquery": "*",
+						"title": {
+							"en": "OU Collection"
+						},
+						"description": {
+							"en": "Collection of Organizational Units For This Site"
+						}
+					}
+				],
+				"properties": [
+					{
+						"id": "name",
+						"type": "string",
+						"typeref": "objname",
+						"required": true,
+						"componentref": {
+							"id": "input"
+						},
+						"title": {
+							"en": "Site Name"
+						},
+						"placeholder": {
+							"en": "Enter Site Name"
+						},
+						"description": {
+							"en": "Unique Site Name Within Company"
+						}
+					},
+					{
+						"id": "type",
+						"type": "string",
+						"required": true,
+						"componentref": {
+							"id": "select"
+						},
+						"title": {
+							"en": "Site Type"
+						},
+						"placeholder": {
+							"en": "Select a Type"
+						},
+						"description": {
+							"en": "Site does not actually have a type but this is to illustrate use of enums using the user type data"
+						},
+						"enumvals": [
+							{
+								"id": "user",
+								"title": {
+									"en": "Named User"
+								},
+								"description": {
+									"en": "Named User Account"
+								}
+							},
+							{
+								"id": "shared",
+								"title": {
+									"en": "Shared User"
+								},
+								"description": {
+									"en": "Shared User Account"
+								}
+							},
+							{
+								"id": "station",
+								"title": {
+									"en": "Station"
+								},
+								"description": {
+									"en": "Task Station or Unattended AutoLogon Device"
+								}
+							},
+							{
+								"id": "api",
+								"title": {
+									"en": "API Interface"
+								},
+								"description": {
+									"en": "External API Interface"
+								}
+							}
+						]
+					}
+				],
+				"messagecodes": [
+					{
+						"code": 101,
+						"title": {
+							"en": "Error Message"
+						},
+						"description": {
+							"en": "Do Something"
+						}
+					}
+				]
+			}
+		]
+	}
+}

@@ -1,0 +1,20 @@
+
+    <mbsc-form [options]="site">
+    <mbsc-form-group>
+    
+    <mbsc-input
+    [(ngModel)]="site.name"
+    [placeholder]="site.placeholder"
+    ></mbsc-input>
+    
+    <mbsc-select
+    [(ngModel)]="site.type"
+    [options]=""
+    [data]="[object Object],[object Object],[object Object],[object Object]"
+    (onSet)="site.type.onSelect($event)"
+    ></mbsc-select>
+    
+    </mbsc-form-group>
+    <mbsc-button>Submit</mbsc-button>
+    </mbsc-form>
+    

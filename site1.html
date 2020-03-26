@@ -1,0 +1,32 @@
+
+    <mbsc-form [options]="site1">
+    <mbsc-form-group>
+    
+    <mbsc-input
+    [(ngModel)]="site1.name"
+    [placeholder]="regForm.placeholder"
+    ></mbsc-input>
+    
+    <mbsc-input
+     [(ngModel)]="site1.password"
+     type="password"
+     placeholder="regForm.placeholder">
+     </mbsc-input>
+    
+    <mbsc-input 
+    [(ngModel)]="site1.email" 
+    type="email" 
+    placeholder="regForm.placeholder">
+    </mbsc-input>
+    
+    <mbsc-select
+    [(ngModel)]="site1.type"
+    [options]=""
+    [data]="regForm.type.data"
+    (onSet)="regForm.type.onSelect($event)"
+    ></mbsc-select>
+    
+    </mbsc-form-group>
+    <mbsc-button>Submit</mbsc-button>
+    </mbsc-form>
+    

@@ -7,11 +7,23 @@
     [placeholder]="regForm.placeholder"
     ></mbsc-input>
     
+    <mbsc-input
+     [(ngModel)]="site.password"
+     type="password"
+     placeholder="regForm.placeholder">
+     </mbsc-input>
+    
+    <mbsc-input 
+    [(ngModel)]="site.email" 
+    type="email" 
+    placeholder="regForm.placeholder">
+    </mbsc-input>
+    
     <mbsc-select
     [(ngModel)]="site.type"
     [options]=""
-    [data]="[object Object],[object Object],[object Object],[object Object]"
-    (onSet)="site.type.onSelect($event)"
+    [data]="regForm.type.data"
+    (onSet)="regForm.type.onSelect($event)"
     ></mbsc-select>
     
     </mbsc-form-group>

@@ -1,0 +1,355 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "EnterpriseSchema.json",
+	"title": "Enterprise Object Definitions",
+	"description": "Definition of Enterprise Level Objects",
+	"definitions": {
+		"company": {
+			"title": "Company",
+			"description": "Host Master Object Type - Company",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "Company Name",
+					"description": "Unique Company Name",
+					"$ref": "SchemaCommon.json#/definitions/objname"
+				},
+				"displayname": {
+					"title": "Display Name",
+					"description": "Optional Display Name",
+					"type": "string",
+					"maxLength": 32
+				},
+				"parent": {
+					"title": "Parent Company",
+					"description": "Optional Reference to Parent Company",
+					"$ref": "SchemaRelations.json#/definitions/organizedby",
+					"$id": "company"
+				},
+				"sites": {
+					"title": "Sites Collection",
+					"description": "Collection of Sites Belonging to Company",
+					"$ref": "SchemaRelations.json#/definitions/contains",
+					"$id": "site"
+				},
+				"orgunits": {
+					"title": "OU Collection",
+					"description": "Collection of Organizational Units Belonging to Company",
+					"$ref": "SchemaRelations.json#/definitions/contains",
+					"$id": "orgunit"
+				},
+				"users": {
+					"title": "Users Collection",
+					"description": "Collection of Users and Security Principals Belonging to Company",
+					"$ref": "SchemaRelations.json#/definitions/contains",
+					"$id": "user"
+				},
+				"description": {
+					"title": "Description",
+					"description": "Optional Company Description",
+					"type": "string"
+				}
+			},
+			"required": [
+				"name"
+			],
+			"additionalProperties": false,
+			"examples": [
+				{
+					"name": "Sage",
+					"displayname": "Sage Clarity",
+					"sites": [
+						{
+							"id": "0fG8kqT",
+							"name": "HQ"
+						}
+					],
+					"description": "A Damn Solid Outfit"
+				}
+			]
+		},
+		"orgunit": {
+			"title": "Org Unit",
+			"description": "Host Master Organizational Unit For Organizing Users, Security Functions, etc.",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "OU Name",
+					"description": "Unique Site Name Within Company",
+					"$ref": "SchemaCommon.json#/definitions/objname"
+				},
+				"displayname": {
+					"title": "Display Name",
+					"description": "Optional Display Name",
+					"type": "string",
+					"maxLength": 32
+				},
+				"company": {
+					"title": "Company",
+					"description": "Reference to Parent Company",
+					"$ref": "SchemaRelations.json#/definitions/containedby"
+				},
+				"parent": {
+					"title": "Parent OU Reference",
+					"description": "Optional Reference For Site Level Units Which Are Members of Corporate OUs",
+					"$ref": "SchemaRelations.json#/definitions/organizedby",
+					"$id": "orgunit"
+				},
+				"site": {
+					"title": "Site Reference",
+					"description": "Optional Reference For Site Level Units",
+					"$ref": "SchemaRelations.json#/definitions/organizedby"
+				},
+				"users": {
+					"title": "Users Collection",
+					"description": "Collection of Users and Security Principals Organized By Unit",
+					"$ref": "SchemaRelations.json#/definitions/organizes",
+					"$id": "user"
+				},
+				"roles": {
+					"title": "Roles Collection",
+					"description": "Collection of Security Roles For This Unit",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/orgunitrole"
+					}
+				},
+				"description": {
+					"title": "Description",
+					"description": "Optional OU Description",
+					"type": "string"
+				}
+			},
+			"required": [
+				"name", "company"
+			],
+			"additionalProperties": false,
+			"examples": [
+				{
+					"name": "Global",
+					"company": {
+						"id": "0fG8kqT",
+						"name": "Sage Clarity",
+						"path": "companies/Sage"
+					},
+					"roles": [
+						{
+							"name": "Administrators",
+							"users": [
+								{
+									"id": "0fG8kqT",
+									"name": "mbertrand"
+								}
+							]
+						}
+					],
+					"users": [
+						{
+							"id": "0fG8kqT",
+							"name": "mbertrand"
+						}
+					],
+					"description": "Global Users and Principals"
+				}
+			]
+		},
+		"orgunitrole": {
+			"title": "Org Unit Role",
+			"description": "Role definition within Organizational Unit, Primarily for Security",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "Role Name",
+					"description": "Unique Role Name Within OU",
+					"$ref": "SchemaCommon.json#/definitions/objname"
+				},
+				"displayname": {
+					"title": "Display Name",
+					"description": "Optional Display Name",
+					"type": "string",
+					"maxLength": 32
+				},
+				"users": {
+					"title": "Users Collection",
+					"description": "Collection of Users and Security Principals Assigned to Role",
+					"$ref": "SchemaRelations.json#/definitions/assignedhas",
+					"$id": "user"
+				},
+				"description": {
+					"title": "Description",
+					"description": "Optional Role Description",
+					"type": "string"
+				}
+			},
+			"required": [
+				"name"
+			],
+			"additionalProperties": false,
+			"examples": [
+				{
+					"name": "Administrators",
+					"users": [
+						{
+							"id": "0fG8kqT",
+							"name": "mbertrand"
+						}
+					]
+				}
+			]
+		},
+		"user": {
+			"title": "User",
+			"description": "Host Master Object Type - User or Security Principal Object Type",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "User or Device Name",
+					"description": "Unique Name for User or Device Within Company",
+					"$ref": "SchemaCommon.json#/definitions/objname"
+				},
+				"displayname": {
+					"title": "Display Name",
+					"description": "Optional Display Name",
+					"type": "string",
+					"maxLength": 32
+				},
+				"type": {
+					"title": "User or Principal Type",
+					"description": "Enumeration for Type of Principal",
+					"type": "string",
+					"enum": [
+						"user",
+						"shared",
+						"station",
+						"api"
+					]
+				},
+				"email": {
+					"title": "User Email Address",
+					"description": "Email Address for User Types",
+					"type": "string",
+					"format": "email"
+				},
+				"company": {
+					"title": "Company",
+					"description": "Reference to Parent Company",
+					"$ref": "SchemaRelations.json#/definitions/containedby"
+				},
+				"orgunit": {
+					"title": "OU Reference",
+					"description": "Required Assignment to Primary Organizational Unit",
+					"$ref": "SchemaRelations.json#/definitions/organizedby"
+				},
+				"roles": {
+					"title": "Organizational Unit Role Assignments",
+					"description": "Collection of Organizational Unit Roles User Belongs to.  Note that at least one assignment is required",
+					"$id": "orgunitrole",
+					"allOf": [
+						{
+							"$ref": "SchemaRelations.json#/definitions/assignedto"
+						},
+						{
+							"minItems": 1
+						}
+					]
+				},
+				"description": {
+					"title": "Description",
+					"description": "Optional User or Device Description",
+					"type": "string"
+				}
+			},
+			"required": [
+				"name",
+				"type",
+				"orgunit"
+			],
+			"additionalProperties": false,
+			"examples": [
+				{
+					"name": "mbertrand",
+					"displayname": "Marc Bertrand",
+					"type": "user",
+					"email": "Marc.Bertrand@sageclarity.com",
+					"company": {
+						"id": "0fG8kqT",
+						"name": "Sage Clarity",
+						"path": "companies/Sage"
+					},
+					"orgunit": {
+						"id": "0fG8kqT",
+						"name": "Global",
+						"path": "orgunits/Global"
+					},
+					"roles": [
+						{
+							"id": "0fG8kqT",
+							"name": "Administrators",
+							"path": "orgunits/Global/roles/Administrators"
+						}
+					],
+					"description": "The Guy who did this schema"
+				}
+			]
+		},
+		"site": {
+			"title": "Site",
+			"description": "Host Master Object Type - Site",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "Site Name",
+					"description": "Unique Site Name Within Company",
+					"$ref": "SchemaCommon.json#/definitions/objname"
+				},
+				"displayname": {
+					"title": "Display Name",
+					"description": "Optional Display Name",
+					"type": "string",
+					"maxLength": 32
+				},
+				"company": {
+					"title": "Company",
+					"description": "Reference to Parent Company",
+					"$ref": "SchemaRelations.json#/definitions/containedby"
+				},
+				"orgunits": {
+					"title": "OU Collection",
+					"description": "Collection of Organizational Units For This Site",
+					"$ref": "SchemaRelations.json#/definitions/organizes",
+					"$id": "orgunit"
+				},
+				"address": {
+					"title": "Site Address",
+					"description": "Optional Address Information",
+					"$ref": "SchemaCommon.json#/definitions/address"
+				},
+				"description": {
+					"title": "Description",
+					"description": "Optional Site Description",
+					"type": "string"
+				}
+			},
+			"required": [
+				"name", "company"
+			],
+			"additionalProperties": false,
+			"examples": [
+				{
+					"name": "HQ",
+					"displayname": "Technexus Chicago",
+					"company": {
+						"id": "0fG8kqT",
+						"name": "Sage Clarity",
+						"path": "companies/Sage"
+					},
+					"address": {
+						"street": "20 Wacker Drive",
+						"city": "Chicago"
+					},
+					"description": "Technexus"
+				}
+			]
+		}
+	}
+}

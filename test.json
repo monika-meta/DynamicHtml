@@ -1,0 +1,136 @@
+{
+    "schema": {
+        "id": "EnterpriseSchema.json",
+        "title": {
+            "en": "Enterprise Object Definitions"
+        },
+        "description": {
+            "en": "Definition of Enterprise Level Objects"
+        },
+        "objtypes": [
+            {
+                "id": "Site",
+                "title": "Site",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "",
+                        "type": "containedby",
+                        "typeref": "containedby",
+                        "title": {
+                            "en": "Company"
+                        },
+                        "description": {
+                            "en": "Reference to Parent Company"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": "Description"
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": "Description"
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    },
+                    {
+                        "id": "orgunits",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": "Description"
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    },
+                    {
+                        "id": "address",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": "Description"
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": "Description"
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

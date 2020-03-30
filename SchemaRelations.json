@@ -1,0 +1,112 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "RelationTypes.json",
+	"title": "Relationship Reference Types",
+	"description": "Definitions of Core Variable Types",
+	"definitions": {
+		"contains": {
+			"title": "Contains",
+			"description": "Reference Side of a Contained By Relationship.  Creates a Collection",
+			"type": "array",
+			"items": {
+				"$ref": "SchemaCommon.json#/definitions/objref"
+			},
+			"examples": [
+				[
+					{
+						"id": "0fG8kqT",
+						"name": "ContainedObject1"
+					},
+					{
+						"id": "0fG8kqT",
+						"name": "ContainedObject2"
+					}
+				]
+			]
+		},
+		"containedby": {
+			"title": "Contained By",
+			"description": "Source Side of a Contained By Relationship.  A single immutable reference instance",
+			"$ref": "SchemaCommon.json#/definitions/objref",
+			"examples": [
+				{
+					"id": "0fG8kqT",
+					"name": "ParentObject",
+					"path": "collection/ParentObject"
+				}
+			]
+		},
+		"organizes": {
+			"title": "Organizes",
+			"description": "Reference Side of a Organized By Relationship.  Creates a collection",
+			"type": "array",
+			"items": {
+				"$ref": "SchemaCommon.json#/definitions/objref"
+			},
+			"examples": [
+				[
+					{
+						"id": "0fG8kqT",
+						"name": "OrganizedObject1"
+					},
+					{
+						"id": "0fG8kqT",
+						"name": "OrganizedObject2"
+					}
+				]
+			]
+		},
+		"organizedby": {
+			"title": "Organized By",
+			"description": "Source Side of a Organized By Relationship.  A single mutable reference which can also have a ContainedName property",
+			"$ref": "SchemaCommon.json#/definitions/objref",
+			"examples": [
+				{
+					"id": "0fG8kqT",
+					"name": "ParentObject",
+					"path": "collection/OrganizingObject"
+				}
+			]
+		},
+		"assignedto": {
+			"title": "Assigned To",
+			"description": "Source Side of an Assigned To Relationship.  Creates a collection.  Note that minItems/minItems may be applied to this relationship type within usages",
+			"type": "array",
+			"items": {
+				"$ref": "SchemaCommon.json#/definitions/objref"
+			},
+			"examples": [
+				[
+					{
+						"id": "0fG8kqT",
+						"name": "AssignedToObject1"
+					},
+					{
+						"id": "0fG8kqT",
+						"name": "AssignedToObject2"
+					}
+				]
+			]
+		},
+		"assignedhas": {
+			"title": "Has Assigned",
+			"description": "Reference Side of an Assigned To Relationship.  Creates a collection.",
+			"type": "array",
+			"items": {
+				"$ref": "SchemaCommon.json#/definitions/objref"
+			},
+			"examples": [
+				[
+					{
+						"id": "0fG8kqT",
+						"name": "HasAssignedObject1"
+					},
+					{
+						"id": "0fG8kqT",
+						"name": "HasAssignedObject2"
+					}
+				]
+			]
+		}
+	}
+}

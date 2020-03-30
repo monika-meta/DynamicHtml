@@ -81,9 +81,9 @@ function conversion(schemaJsonData,   resourceJsonData, objectTypeObjectDummy, r
 
     let relation;
     let key = propertieKeys[i];
-
     relation = properties[key]['$ref'] && properties[key]['$ref'].split('/definitions/')[1];
-      if(properties[key]['$ref'] && relation == 'containedby'){
+      if(properties[key]['$ref'] && relation == 'contains' || relation == 'containedby'|| relation == 'organizes'|| relation == 'organizedby' || relation == 'assignedto' || relation == 'assignedhas' ){
+        relationObectDummy.id = key;
         relationObectDummy.type = relation;
         relationObectDummy.typeref = relation;
         relationObectDummy.title.en = properties[key].title;

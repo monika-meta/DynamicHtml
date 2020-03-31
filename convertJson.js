@@ -2,10 +2,10 @@
 
 const fs = require('fs');
 
-let schema= fs.readFileSync('SchemaEnterprise.json');
+let schema = fs.readFileSync('SchemaEnterprise.json');
 let schemaJsonData = JSON.parse(schema);
 
-let resource= fs.readFileSync('UIResourceExampleDummy.json');
+let resource = fs.readFileSync('UIResourceExampleDummy.json');
 let resourceJsonData = JSON.parse(resource);
 
 let objectTypeObjectDummy = {
@@ -62,50 +62,61 @@ let propertiesObjectDummy = {
 }
 
 conversion(schemaJsonData, resourceJsonData, objectTypeObjectDummy, relationObectDummy, propertiesObjectDummy);
-function conversion(schemaJsonData,   resourceJsonData, objectTypeObjectDummy, relationObectDummy, propertiesObjectDummy){
- 
-  
+function conversion(schemaJsonData, resourceJsonData, objectTypeObjectDummy, relationObectDummy, propertiesObjectDummy) {
+
   resourceJsonData.schema.id = schemaJsonData.$id;
   resourceJsonData.schema.title.en = schemaJsonData.title;
   resourceJsonData.schema.description.en = schemaJsonData.description;
 
   let definitionsKeys = Object.keys(schemaJsonData.definitions);
-  objectTypeObjectDummy.id = definitionsKeys[4]
-  objectTypeObjectDummy.title = schemaJsonData.definitions.site.title
-  objectTypeObjectDummy.description.en = schemaJsonData.definitions.site.description
 
-  let propertieKeys = Object.keys(schemaJsonData.definitions.site.properties);
-  let properties = schemaJsonData.definitions.site.properties;
 
-  for(let i =0 ; i< propertieKeys.length ; i++){
+  for (let j = 0; j < definitionsKeys.length; j++) {
+    console.log("definitionsKeys[j]",j, definitionsKeys[j])
+    objectTypeObjectDummy.id = definitionsKeys[j]
+    objectTypeObjectDummy.title = schemaJsonData.definitions[definitionsKeys[j]].title
+    objectTypeObjectDummy.description.en = schemaJsonData.definitions[definitionsKeys[j]].description
+    let propertieKeys = Object.keys(schemaJsonData.definitions[definitionsKeys[j]].properties);
+    let properties = Object.assign({}, schemaJsonData.definitions[definitionsKeys[j]].properties);
 
-    let relation;
-    let key = propertieKeys[i];
-    relation = properties[key]['$ref'] && properties[key]['$ref'].split('/definitions/')[1];
-      if(properties[key]['$ref'] && relation == 'contains' || relation == 'containedby'|| relation == 'organizes'|| relation == 'organizedby' || relation == 'assignedto' || relation == 'assignedhas' ){
+    for (let i = 0; i < propertieKeys.length; i++) {
+
+      let relation;
+      let key = propertieKeys[i];
+      relation = properties[key]['$ref'] && properties[key]['$ref'].split('/definitions/')[1];
+      if (properties[key]['$ref'] && relation == 'contains' || relation == 'containedby' || relation == 'organizes' || relation == 'organizedby' || relation == 'assignedto' || relation == 'assignedhas') {
         relationObectDummy.id = key;
         relationObectDummy.type = relation;
         relationObectDummy.typeref = relation;
-        relationObectDummy.title.en = properties[key].title;
-        relationObectDummy.description.en = properties[key].description;
+        relationObectDummy.title.en = JSON.stringify(properties[key].title);
+        console.log("relationObectDummy.title.en", relationObectDummy.title.en)
+        relationObectDummy.description.en = JSON.stringify(properties[key].description);
         let clonedrelationObectDummy = Object.assign({}, relationObectDummy);
+        console.log("relationObectDummy.title.en", relationObectDummy)
 
         objectTypeObjectDummy.relations.push(clonedrelationObectDummy);
-      }else{
+      } else {
         propertiesObjectDummy.id = key;
         propertiesObjectDummy.type = "string";
         propertiesObjectDummy.typeref = "objname";
         propertiesObjectDummy.required = true;
         propertiesObjectDummy.componentref.id = "input";
         propertiesObjectDummy.title.en = properties[key].title;
-        propertiesObjectDummy.placeholder.en = "Enter "+properties[key].title;
+        propertiesObjectDummy.placeholder.en = "Enter " + properties[key].title;
         propertiesObjectDummy.description.en = properties[key].description;
         let clonedPropertiesObjectDummy = Object.assign({}, propertiesObjectDummy);
-
         objectTypeObjectDummy.properties.push(clonedPropertiesObjectDummy);
       }
+    }
+
+    let clonedObjectTypeObjectDummy = Object.assign({}, objectTypeObjectDummy);
+    // console.log("cloned/ObjectTypeObjectDummy ", clonedObjectTypeObjectDummy);
+
+    resourceJsonData.schema.objtypes.push(clonedObjectTypeObjectDummy)
+
+
   }
-  resourceJsonData.schema.objtypes.push(objectTypeObjectDummy)
+
   fs.writeFileSync('json/UIResourceExample.json', JSON.stringify(resourceJsonData));
 
 }

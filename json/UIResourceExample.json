@@ -1,0 +1,635 @@
+{
+    "schema": {
+        "id": "EnterpriseSchema.json",
+        "title": {
+            "en": "Enterprise Object Definitions"
+        },
+        "description": {
+            "en": "Definition of Enterprise Level Objects"
+        },
+        "objtypes": [
+            {
+                "id": "company",
+                "title": "Company",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "parent",
+                        "type": "organizedby",
+                        "typeref": "organizedby",
+                        "title": {
+                            "en": "Parent Company"
+                        },
+                        "description": {
+                            "en": "Optional Reference to Parent Company"
+                        }
+                    },
+                    {
+                        "id": "sites",
+                        "type": "contains",
+                        "typeref": "contains",
+                        "title": {
+                            "en": "Sites Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Sites Belonging to Company"
+                        }
+                    },
+                    {
+                        "id": "orgunits",
+                        "type": "organizes",
+                        "typeref": "organizes",
+                        "title": {
+                            "en": "OU Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Organizational Units Belonging to Company"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Company Name"
+                        },
+                        "description": {
+                            "en": "Unique Company Name"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Display Name"
+                        },
+                        "description": {
+                            "en": "Optional Display Name"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Company Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "orgunit",
+                "title": "Org Unit",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "company",
+                        "type": "organizedby",
+                        "typeref": "organizedby",
+                        "title": {
+                            "en": "Company"
+                        },
+                        "description": {
+                            "en": "Reference to Parent Company"
+                        }
+                    },
+                    {
+                        "id": "parent",
+                        "type": "organizedby",
+                        "typeref": "organizedby",
+                        "title": {
+                            "en": "Parent OU Reference"
+                        },
+                        "description": {
+                            "en": "Optional Reference For Site Level Units Which Are Members of Corporate OUs"
+                        }
+                    },
+                    {
+                        "id": "site",
+                        "type": "organizedby",
+                        "typeref": "organizedby",
+                        "title": {
+                            "en": "Site Reference"
+                        },
+                        "description": {
+                            "en": "Optional Reference For Site Level Units"
+                        }
+                    },
+                    {
+                        "id": "users",
+                        "type": "contains",
+                        "typeref": "contains",
+                        "title": {
+                            "en": "Users Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Users and Security Principals Organized By Unit"
+                        }
+                    },
+                    {
+                        "id": "roles",
+                        "type": "contains",
+                        "typeref": "contains",
+                        "title": {
+                            "en": "Roles Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Security Roles For This Unit"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter OU Name"
+                        },
+                        "description": {
+                            "en": "Unique Site Name Within Company"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Display Name"
+                        },
+                        "description": {
+                            "en": "Optional Display Name"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional OU Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "orgunitrole",
+                "title": "Org Unit Role",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "users",
+                        "type": "assignedhas",
+                        "typeref": "assignedhas",
+                        "title": {
+                            "en": "Users Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Users and Security Principals Assigned to Role"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Role Name"
+                        },
+                        "description": {
+                            "en": "Unique Role Name Within OU"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Display Name"
+                        },
+                        "description": {
+                            "en": "Optional Display Name"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Role Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "user",
+                "title": "User",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "orgunit",
+                        "type": "containedby",
+                        "typeref": "containedby",
+                        "title": {
+                            "en": "OU Reference"
+                        },
+                        "description": {
+                            "en": "Required Assignment to Primary Organizational Unit"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter User or Device Name"
+                        },
+                        "description": {
+                            "en": "Unique Name for User or Device Within Company"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Display Name"
+                        },
+                        "description": {
+                            "en": "Optional Display Name"
+                        }
+                    },
+                    {
+                        "id": "type",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter User or Principal Type"
+                        },
+                        "description": {
+                            "en": "Enumeration for Type of Principal"
+                        }
+                    },
+                    {
+                        "id": "email",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter User Email Address"
+                        },
+                        "description": {
+                            "en": "Email Address for User Types"
+                        }
+                    },
+                    {
+                        "id": "roles",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Organizational Unit Role Assignments"
+                        },
+                        "description": {
+                            "en": "Collection of Organizational Unit Roles User Belongs to.  Note that at least one assignment is required"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional User or Device Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "site",
+                "title": "Site",
+                "description": {
+                    "en": "Host Master Object Type - Site"
+                },
+                "relations": [
+                    {
+                        "id": "company",
+                        "type": "containedby",
+                        "typeref": "containedby",
+                        "title": {
+                            "en": "Company"
+                        },
+                        "description": {
+                            "en": "Reference to Parent Company"
+                        }
+                    },
+                    {
+                        "id": "orgunits",
+                        "type": "organizes",
+                        "typeref": "organizes",
+                        "title": {
+                            "en": "OU Collection"
+                        },
+                        "description": {
+                            "en": "Collection of Organizational Units For This Site"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Site Name"
+                        },
+                        "description": {
+                            "en": "Unique Site Name Within Company"
+                        }
+                    },
+                    {
+                        "id": "displayname",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Display Name"
+                        },
+                        "description": {
+                            "en": "Optional Display Name"
+                        }
+                    },
+                    {
+                        "id": "address",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Site Address"
+                        },
+                        "description": {
+                            "en": "Optional Address Information"
+                        }
+                    },
+                    {
+                        "id": "description",
+                        "type": "string",
+                        "typeref": "objname",
+                        "required": true,
+                        "componentref": {
+                            "id": "input"
+                        },
+                        "title": {
+                            "en": {
+                                "en": "Description"
+                            }
+                        },
+                        "placeholder": {
+                            "en": "Enter Description"
+                        },
+                        "description": {
+                            "en": "Optional Site Description"
+                        }
+                    }
+                ],
+                "messagecodes": [
+                    {
+                        "code": 101,
+                        "title": {
+                            "en": "Error Message"
+                        },
+                        "description": {
+                            "en": "Do Something"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -35,14 +35,8 @@
 				"orgunits": {
 					"title": "OU Collection",
 					"description": "Collection of Organizational Units Belonging to Company",
-					"$ref": "SchemaRelations.json#/definitions/contains",
+					"$ref": "SchemaRelations.json#/definitions/organizes",
 					"$id": "orgunit"
-				},
-				"users": {
-					"title": "Users Collection",
-					"description": "Collection of Users and Security Principals Belonging to Company",
-					"$ref": "SchemaRelations.json#/definitions/contains",
-					"$id": "user"
 				},
 				"description": {
 					"title": "Description",
@@ -87,7 +81,7 @@
 				"company": {
 					"title": "Company",
 					"description": "Reference to Parent Company",
-					"$ref": "SchemaRelations.json#/definitions/containedby"
+					"$ref": "SchemaRelations.json#/definitions/organizedby"
 				},
 				"parent": {
 					"title": "Parent OU Reference",
@@ -103,12 +97,13 @@
 				"users": {
 					"title": "Users Collection",
 					"description": "Collection of Users and Security Principals Organized By Unit",
-					"$ref": "SchemaRelations.json#/definitions/organizes",
+					"$ref": "SchemaRelations.json#/definitions/contains",
 					"$id": "user"
 				},
 				"roles": {
 					"title": "Roles Collection",
 					"description": "Collection of Security Roles For This Unit",
+					"$ref": "SchemaRelations.json#/definitions/contains",
 					"type": "array",
 					"items": {
 						"$ref": "#/definitions/orgunitrole"
@@ -230,15 +225,10 @@
 					"type": "string",
 					"format": "email"
 				},
-				"company": {
-					"title": "Company",
-					"description": "Reference to Parent Company",
-					"$ref": "SchemaRelations.json#/definitions/containedby"
-				},
 				"orgunit": {
 					"title": "OU Reference",
 					"description": "Required Assignment to Primary Organizational Unit",
-					"$ref": "SchemaRelations.json#/definitions/organizedby"
+					"$ref": "SchemaRelations.json#/definitions/containedby"
 				},
 				"roles": {
 					"title": "Organizational Unit Role Assignments",
